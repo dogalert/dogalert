@@ -1,99 +1,93 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+<div class="container">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+    @isset($success)
+    <div class="row justify-content-center">
+        <div class="col-md-6 offset-md-1">
+            <div class="alert alert-success alert-dismissible fade show p-4" role="alert">
+                <h4>These monitors were created</h4>
+                @foreach($success as $name => $status)
+                    <div class="col-sm">{{ $name }}<span class="float-right"><span class="fas fa-check"></span></div>
+                @endforeach
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    @endisset
 
-            .full-height {
-                height: 100vh;
-            }
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header text-center"><h3>Add Datadog Monitors</h3></div>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+                <div class="card-body">
+                    <form method="POST" action="/">
+                        @csrf
 
-            .position-ref {
-                position: relative;
-            }
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                <p>You can create Datadog API and Application keys under <a href="https://app.datadoghq.com/account/settings#api" target="_">Integrations -> APIs</a>.</p><p>We never save any information submitted on this site, but for your safety, please revoke any Datadog API and Application keys used this site.
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="api_key" class="col-md-4 col-form-label text-md-right">{{ __('Datadog API Key') }}</label>
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+                            <div class="col-md-6">
+                                <input id="api_key" type="api_key" class="form-control @error('api_key') is-invalid @enderror" name="api_key" value="{{ old('api_key') }}" required autocomplete="api_key" autofocus>
 
-            .content {
-                text-align: center;
-            }
+                                @error('api_key')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-            .title {
-                font-size: 84px;
-            }
+                        <div class="form-group row">
+                            <label for="app_key" class="col-md-4 col-form-label text-md-right">{{ __('Datadog Application Key') }}</label>
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+                            <div class="col-md-6">
+                                <input id="app_key" type="app_key" class="form-control @error('app_key') is-invalid @enderror" name="app_key" required autocomplete="current-app_key">
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+                                @error('app_key')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+                        <div class="form-group row">
+                            <label for="app_key" class="col-md-4 col-form-label text-md-right">{{ __('Choose your monitors') }}</label>
+                            <div class="col-md-6">
+                                <input type="checkbox" checked data-toggle="toggle" data-on="Free" data-off="Premium" data-onstyle="warning" data-offstyle="success" disabled><a href="#" onclick="$('#customize').removeClass('d-none')" class="customize align-bottom">customize</a>
+                            </div>
+                        </div>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+                        <div id="customize" class="form-group row d-none">
+                            <label for="app_key" class="col-md-4 col-form-label text-md-right">{{ __('Customize your monitors') }}</label>
+                            <div class="col-md-6 mt-2">
+                                <dogalert></dogalert>
+                            </div>
+                        </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Add monitors!') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+</div>
+
+@endsection
