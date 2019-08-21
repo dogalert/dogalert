@@ -38,6 +38,17 @@ class DogAlert extends Controller
             }
         }
 
+        if(isset($request['basicNginxMonitors'])) {
+            foreach($request['basicNginxMonitors'] as $mon) {
+                $data = $this->$mon();
+                if($this->postAlert($ch, $data)) {
+                    $success[$mon] = true;
+                } else {
+                    $success[$mon] = false;
+                }
+            }
+        }
+
         curl_close($ch);
         return view('welcome', ['success' => $success]);
     }
@@ -141,12 +152,12 @@ class DogAlert extends Controller
         }';
     }
 
-    function lowDiskSpace() {
+    function cpuIOWait() {
         return '{
-            "name": "Low disk space on disk {{device.name}} on {{host.name}}",
-            "type": "query alert",
-            "query": "avg(last_5m):avg:system.disk.free{!device:devtmpfs,!device:tmpfs} by {device} < 2000000000",
-            "message": "{{#is_alert}}Low disk space on disk {{device.name}} on {{host.name}}{{/is_alert}}\n{{#is_recovery}}Low disk space recovered on disk {{device.name}} on {{host.name}}{{/is_recovery}}",
+            "name": "CPU IO wait is high on {{host.name}}",
+            "type": "metric alert",
+            "query": "avg(last_5m):avg:system.cpu.iowait{*} by {host} > 30",
+            "message": "{{#is_alert}}CPU IO wait is high on {{host.name}}{{/is_alert}} \n{{#is_recovery}}CPU IO wait recovered on {{host.name}}{{/is_recovery}} ",
             "tags": [],
             "options": {
                 "notify_audit": true,
@@ -157,24 +168,108 @@ class DogAlert extends Controller
                 "notify_no_data": false,
                 "renotify_interval": "0",
                 "escalation_message": "",
-                "no_data_timeframe": null,
                 "include_tags": true,
+                "no_data_timeframe": null,
                 "thresholds": {
-                    "critical": 2000000000,
-                    "warning": 20000000000,
-                    "critical_recovery": 5000000000,
-                    "warning_recovery": 25000000000
+                    "critical": 30,
+                    "warning": 20,
+                    "critical_recovery": 25,
+                    "warning_recovery": 15
                 }
             }
         }';
     }
 
-    function netTraffic() {
+    function lowDiskSpace() {
         return '{
-            "name": "High network traffic on {{host.name}} ",
+            "name": "Low disk space on {{device.name}} on {{host.name}} ",
             "type": "metric alert",
-            "query": "avg(last_5m):avg:docker.net.bytes_rcvd{*} by {host} > 40000000",
-            "message": "{{#is_alert}}High network traffic on {{host.name}}{{/is_alert}} \n{{#is_recovery}}High network traffic on {{host.name}}{{/is_recovery}}",
+            "query": "avg(last_5m):avg:system.disk.in_use{!device:devtmpfs,!device:tmpfs} by {device} > 90",
+            "message": "{{#is_alert}}Low disk space on {{device.name}} on {{host.name}}{{/is_alert}} \n{{#is_recovery}}Low disk space on {{device.name}} on {{host.name}}{{/is_recovery}} ",
+            "tags": [],
+            "options": {
+                "notify_audit": true,
+                "locked": true,
+                "timeout_h": 0,
+                "new_host_delay": 300,
+                "require_full_window": true,
+                "notify_no_data": false,
+                "renotify_interval": "0",
+                "escalation_message": "",
+                "include_tags": true,
+                "no_data_timeframe": null,
+                "thresholds": {
+                    "critical": 90,
+                    "warning": 80,
+                    "critical_recovery": 85,
+                    "warning_recovery": 75
+                }
+            }
+        }';
+    }
+
+    function highDiskReads() {
+        return '{
+            "name": "High disk reads on {{device.name}} on {{host.name}}",
+            "type": "metric alert",
+            "query": "avg(last_5m):avg:system.disk.read_time_pct{*} by {device} > 60",
+            "message": "{{#is_alert}}High disk reads on {{device.name}} on {{host.name}}{{/is_alert}} \n{{#is_recovery}}High disk reads recovered on {{device.name}} on {{host.name}}{{/is_recovery}} ",
+            "tags": [],
+            "options": {
+                "notify_audit": true,
+                "locked": true,
+                "timeout_h": 0,
+                "new_host_delay": 300,
+                "require_full_window": true,
+                "notify_no_data": false,
+                "renotify_interval": "0",
+                "escalation_message": "",
+                "include_tags": true,
+                "no_data_timeframe": null,
+                "thresholds": {
+                    "critical": 60,
+                    "warning": 30,
+                    "critical_recovery": 50,
+                    "warning_recovery": 20
+                }
+            }
+        }';
+    }
+
+    function highDiskWrites() {
+        return '{
+            "name": "High disk writes on {{device.name}} on {{host.name}}",
+            "type": "metric alert",
+            "query": "avg(last_5m):avg:system.disk.write_time_pct{*} by {device} > 60",
+            "message": "{{#is_alert}}High disk writes on {{device.name}} on {{host.name}}{{/is_alert}} \n{{#is_recovery}}High disk writes recovered on {{device.name}} on {{host.name}}{{/is_recovery}} ",
+            "tags": [],
+            "options": {
+                "notify_audit": true,
+                "locked": true,
+                "timeout_h": 0,
+                "new_host_delay": 300,
+                "require_full_window": true,
+                "notify_no_data": false,
+                "renotify_interval": "0",
+                "escalation_message": "",
+                "include_tags": true,
+                "no_data_timeframe": null,
+                "thresholds": {
+                    "critical": 60,
+                    "warning": 30,
+                    "critical_recovery": 50,
+                    "warning_recovery": 20
+                }
+            }
+        }';
+    }
+
+    function netInboundTraffic() {
+        return '{
+            "name": "High inbound network traffic on {{host.name}}",
+            "type": "query alert",
+            "query": "avg(last_5m):avg:system.net.bytes_rcvd{*} by {host} > 40000000",
+            "message": "{{#is_alert}}High inbound network traffic on {{host.name}}{{/is_alert}} \n{{#is_recovery}}High inbound network traffic on {{host.name}}{{/is_recovery}}",
             "tags": [],
             "options": {
                 "notify_audit": true,
@@ -190,19 +285,75 @@ class DogAlert extends Controller
                 "thresholds": {
                     "critical": 40000000,
                     "warning": 10000000,
-                    "critical_recovery": 35000000,
-                    "warning_recovery": 9000000
+                    "warning_recovery": 9000000,
+                    "critical_recovery": 35000000
                 }
             }
         }';
     }
 
-    function mysqlHighQPS() {
+    function netOutboundTraffic() {
         return '{
-            "name": "High number of MySQL queries on {{host.name}} ",
+            "name": "High outbound network traffic on {{host.name}}",
+            "type": "query alert",
+            "query": "avg(last_5m):avg:system.net.bytes_sent{*} by {host} > 40000000",
+            "message": "{{#is_alert}}High outbound network traffic on {{host.name}}{{/is_alert}} \n{{#is_recovery}}High outbound network traffic on {{host.name}}{{/is_recovery}}",
+            "tags": [],
+            "options": {
+                "notify_audit": true,
+                "locked": true,
+                "timeout_h": 0,
+                "new_host_delay": 300,
+                "require_full_window": true,
+                "notify_no_data": false,
+                "renotify_interval": "0",
+                "escalation_message": "",
+                "no_data_timeframe": null,
+                "include_tags": true,
+                "thresholds": {
+                    "critical": 40000000,
+                    "warning": 10000000,
+                    "warning_recovery": 9000000,
+                    "critical_recovery": 35000000
+                }
+            }
+        }';
+    }
+
+    function mysqlQPSChange() {
+        return '{
+            "name": "Number of MySQL queries per second changed on {{host.name}}",
             "type": "metric alert",
-            "query": "avg(last_5m):avg:mysql.performance.queries{*} by {host} > 40000",
-            "message": "{{#is_alert}}High number of MySQL queries on {{host.name}} {{/is_alert}} \n{{#is_recovery}} High number of MySQL queries recovered on {{host.name}} {{/is_recovery}} ",
+            "query": "change(avg(last_5m),last_5m):avg:mysql.performance.questions{*} by {host} > 750",
+            "message": "{{#is_alert}}Number of MySQL queries per second changed on {{host.name}}{{/is_alert}}\n{{#is_recovery}}Number of MySQL queries per second changed recovered on {{host.name}}{{/is_recovery}}",
+            "tags": [],
+            "options": {
+                "notify_audit": true,
+                "locked": true,
+                "timeout_h": 0,
+                "new_host_delay": 300,
+                "require_full_window": true,
+                "notify_no_data": false,
+                "renotify_interval": "0",
+                "escalation_message": "",
+                "no_data_timeframe": null,
+                "include_tags": true,
+                "thresholds": {
+                    "critical": 750,
+                    "warning": 500,
+                    "critical_recovery": 700,
+                    "warning_recovery": 450
+                }
+            }
+        }';
+    }
+
+    function mysqlSelectChange() {
+        return '{
+            "name": "Number of MySQL selects per second changed on {{host.name}} ",
+            "type": "metric alert",
+            "query": "avg(last_5m):avg:mysql.performance.com_select{*} by {host} > 750",
+            "message": "{{#is_alert}}Number of MySQL selects per second changed on {{host.name}}{{/is_alert}}\n{{#is_recovery}}Number of MySQL selects per second changed recovered on {{host.name}}{{/is_recovery}}",
             "tags": [],
             "options": {
                 "notify_audit": true,
@@ -216,10 +367,94 @@ class DogAlert extends Controller
                 "include_tags": true,
                 "no_data_timeframe": null,
                 "thresholds": {
-                    "critical": 40000,
-                    "warning": 25000,
-                    "critical_recovery": 35000,
-                    "warning_recovery": 20000
+                    "critical": 750,
+                    "warning": 500,
+                    "critical_recovery": 700,
+                    "warning_recovery": 450
+                }
+            }
+        }';
+    }
+
+    function mysqlInsertChange() {
+        return '{
+            "name": "Number of MySQL inserts per second changed on {{host.name}} ",
+            "type": "metric alert",
+            "query": "avg(last_5m):avg:mysql.performance.com_insert{*} by {host} > 750",
+            "message": "{{#is_alert}}Number of MySQL inserts per second changed on {{host.name}}{{/is_alert}}\n{{#is_recovery}}Number of MySQL inserts per second changed recovered on {{host.name}}{{/is_recovery}}",
+            "tags": [],
+            "options": {
+                "notify_audit": true,
+                "locked": true,
+                "timeout_h": 0,
+                "new_host_delay": 300,
+                "require_full_window": true,
+                "notify_no_data": false,
+                "renotify_interval": "0",
+                "escalation_message": "",
+                "include_tags": true,
+                "no_data_timeframe": null,
+                "thresholds": {
+                    "critical": 750,
+                    "warning": 500,
+                    "critical_recovery": 700,
+                    "warning_recovery": 450
+                }
+            }
+        }';
+    }
+
+    function mysqlUpdateChange() {
+        return '{
+            "name": "Number of MySQL updates per second changed on {{host.name}} ",
+            "type": "metric alert",
+            "query": "avg(last_5m):avg:mysql.performance.com_update{*} by {host} > 750",
+            "message": "{{#is_alert}}Number of MySQL updates per second changed on {{host.name}}{{/is_alert}}\n{{#is_recovery}}Number of MySQL updates per second changed recovered on {{host.name}}{{/is_recovery}}",
+            "tags": [],
+            "options": {
+                "notify_audit": true,
+                "locked": true,
+                "timeout_h": 0,
+                "new_host_delay": 300,
+                "require_full_window": true,
+                "notify_no_data": false,
+                "renotify_interval": "0",
+                "escalation_message": "",
+                "include_tags": true,
+                "no_data_timeframe": null,
+                "thresholds": {
+                    "critical": 750,
+                    "warning": 500,
+                    "critical_recovery": 700,
+                    "warning_recovery": 450
+                }
+            }
+        }';
+    }
+
+    function mysqlDeleteChange() {
+        return '{
+            "name": "Number of MySQL deletes per second changed on {{host.name}} ",
+            "type": "metric alert",
+            "query": "avg(last_5m):avg:mysql.performance.com_delete{*} by {host} > 750",
+            "message": "{{#is_alert}}Number of MySQL deletes per second changed on {{host.name}}{{/is_alert}}\n{{#is_recovery}}Number of MySQL deletes per second changed recovered on {{host.name}}{{/is_recovery}}",
+            "tags": [],
+            "options": {
+                "notify_audit": true,
+                "locked": true,
+                "timeout_h": 0,
+                "new_host_delay": 300,
+                "require_full_window": true,
+                "notify_no_data": false,
+                "renotify_interval": "0",
+                "escalation_message": "",
+                "include_tags": true,
+                "no_data_timeframe": null,
+                "thresholds": {
+                    "critical": 750,
+                    "warning": 500,
+                    "critical_recovery": 700,
+                    "warning_recovery": 450
                 }
             }
         }';
@@ -304,6 +539,62 @@ class DogAlert extends Controller
                     "warning": 2,
                     "critical_recovery": 3,
                     "warning_recovery": 1
+                }
+            }
+        }';
+    }
+
+    function nginxRequestsPerSecondChanged() {
+        return '{
+            "name": "Nginx number of req/s changed on {{host.name}} ",
+            "type": "metric alert",
+            "query": "change(avg(last_5m),last_5m):avg:nginx.net.request_per_s{*} by {host} > 500",
+            "message": "{{#is_alert}}Nginx number of req/s changed on {{host.name}}{{/is_alert}}\n{{#is_recovery}}Nginx number of req/s on {{host.name}}{{/is_recovery}} ",
+            "tags": [],
+            "options": {
+                "notify_audit": true,
+                "locked": true,
+                "timeout_h": 0,
+                "new_host_delay": 300,
+                "require_full_window": true,
+                "notify_no_data": false,
+                "renotify_interval": "0",
+                "escalation_message": "",
+                "include_tags": true,
+                "no_data_timeframe": null,
+                "thresholds": {
+                    "critical": 500,
+                    "warning": 400,
+                    "critical_recovery": 450,
+                    "warning_recovery": 350
+                }
+            }
+        }';
+    }
+
+    function nginxDroppedConnections() {
+        return '{
+            "name": "Nginx number of dropped connections changed on {{host.name}} ",
+            "type": "metric alert",
+            "query": "avg(last_5m):avg:nginx.net.conn_dropped_per_s{*} by {host} > 10",
+            "message": "{{#is_alert}}Nginx number of dropped connections changed on {{host.name}}{{/is_alert}}\n{{#is_recovery}}Nginx number of dropped connections recovered on {{host.name}}{{/is_recovery}} ",
+            "tags": [],
+            "options": {
+                "notify_audit": true,
+                "locked": true,
+                "timeout_h": 0,
+                "new_host_delay": 300,
+                "require_full_window": true,
+                "notify_no_data": false,
+                "renotify_interval": "0",
+                "escalation_message": "",
+                "include_tags": true,
+                "no_data_timeframe": null,
+                "thresholds": {
+                    "critical": 10,
+                    "warning": 5,
+                    "critical_recovery": 8,
+                    "warning_recovery": 0
                 }
             }
         }';

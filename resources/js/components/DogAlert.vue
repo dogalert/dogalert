@@ -29,16 +29,44 @@
         </div>
 
         <div class="form-check ml-3">
-            <input class="form-check-input" type="checkbox" name="basicMonitors[]" value="lowDiskSpace" id="lowDiskSpace" v-model="lowDiskSpaceChecked">
-            <label class="form-check-label" for="lowDiskSpace">
-                Low disk space per device
+            <input class="form-check-input" type="checkbox" name="basicMonitors[]" value="cpuIOWait" id="cpuIOWait" v-model="cpuIOWaitChecked">
+            <label class="form-check-label" for="cpuIOWait">
+                CPU IO wait per host
             </label>
         </div>
 
         <div class="form-check ml-3">
-            <input class="form-check-input" type="checkbox" name="basicMonitors[]" value="netTraffic" id="netTraffic" v-model="netTrafficChecked">
-            <label class="form-check-label" for="netTraffic">
-                High network traffic per host
+            <input class="form-check-input" type="checkbox" name="basicMonitors[]" value="lowDiskSpace" id="lowDiskSpace" v-model="lowDiskSpaceChecked">
+            <label class="form-check-label" for="lowDiskSpace">
+                Low available space per disk
+            </label>
+        </div>
+
+        <div class="form-check ml-3">
+            <input class="form-check-input" type="checkbox" name="basicMonitors[]" value="highDiskReads" id="highDiskReads" v-model="highDiskReadsChecked">
+            <label class="form-check-label" for="highDiskReads">
+                High read percentage per disk
+            </label>
+        </div>
+
+        <div class="form-check ml-3">
+            <input class="form-check-input" type="checkbox" name="basicMonitors[]" value="highDiskWrites" id="highDiskWrites" v-model="highDiskWritesChecked">
+            <label class="form-check-label" for="highDiskWrites">
+                High write percentage per disk
+            </label>
+        </div>
+
+        <div class="form-check ml-3">
+            <input class="form-check-input" type="checkbox" name="basicMonitors[]" value="netInboundTraffic" id="netInboundTraffic" v-model="netInboundTrafficChecked">
+            <label class="form-check-label" for="netInboundTraffic">
+                High inbound network traffic per host
+            </label>
+        </div>
+
+        <div class="form-check ml-3">
+            <input class="form-check-input" type="checkbox" name="basicMonitors[]" value="netOutboundTraffic" id="netOutboundTraffic" v-model="netOutboundTrafficChecked">
+            <label class="form-check-label" for="netOutboundTraffic">
+                High outbound network traffic per host
             </label>
         </div>
 
@@ -50,9 +78,37 @@
         </div>
 
         <div class="form-check ml-3">
-            <input class="form-check-input" type="checkbox" name="basicMysqlMonitors[]" value="mysqlHighQPS" id="mysqlHighQPS" v-model="mysqlHighQPSChecked">
-            <label class="form-check-label" for="mysqlHighQPS">
-                MySQL high number of queries per second per host
+            <input class="form-check-input" type="checkbox" name="basicMysqlMonitors[]" value="mysqlQPSChange" id="mysqlQPSChange" v-model="mysqlQPSChangeChecked">
+            <label class="form-check-label" for="mysqlQPSChange">
+                MySQL number of queries changed per host
+            </label>
+        </div>
+        
+        <div class="form-check ml-3">
+            <input class="form-check-input" type="checkbox" name="basicMysqlMonitors[]" value="mysqlSelectChange" id="mysqlSelectChange" v-model="mysqlSelectChangeChecked">
+            <label class="form-check-label" for="mysqlSelectChange">
+                MySQL number of selects changed per host
+            </label>
+        </div>
+        
+        <div class="form-check ml-3">
+            <input class="form-check-input" type="checkbox" name="basicMysqlMonitors[]" value="mysqlInsertChange" id="mysqlInsertChange" v-model="mysqlInsertChangeChecked">
+            <label class="form-check-label" for="mysqlInsertChange">
+                MySQL number of inserts changed per host
+            </label>
+        </div>
+        
+        <div class="form-check ml-3">
+            <input class="form-check-input" type="checkbox" name="basicMysqlMonitors[]" value="mysqlUpdateChange" id="mysqlUpdateChange" v-model="mysqlUpdateChangeChecked">
+            <label class="form-check-label" for="mysqlUpdateChange">
+                MySQL number of updates changed per host
+            </label>
+        </div>
+        
+        <div class="form-check ml-3">
+            <input class="form-check-input" type="checkbox" name="basicMysqlMonitors[]" value="mysqlDeleteChange" id="mysqlDeleteChange" v-model="mysqlDeleteChangeChecked">
+            <label class="form-check-label" for="mysqlDeleteChange">
+                MySQL number of deletes changed per host
             </label>
         </div>
         
@@ -85,16 +141,16 @@
         </div>
 
         <div class="form-check ml-3">
-            <input class="form-check-input" type="checkbox" name="basicNginxMonitors[]" value="nginxHighRequests" id="nginxHighRequests" v-model="nginxHighRequestsChecked">
-            <label class="form-check-label" for="nginxHighRequests">
-                Nginx high requests per second
+            <input class="form-check-input" type="checkbox" name="basicNginxMonitors[]" value="nginxRequestsPerSecondChanged" id="nginxRequestsPerSecondChanged" v-model="nginxRequestsPerSecondChangedChecked">
+            <label class="form-check-label" for="nginxRequestsPerSecondChanged">
+                Nginx requests per second changed
             </label>
         </div>
 
         <div class="form-check ml-3">
-            <input class="form-check-input" type="checkbox" name="basicNginxMonitors[]" value="nginxHighErrors" id="nginxHighErrors" v-model="nginxHighErrorsChecked">
-            <label class="form-check-label" for="nginxHighErrors">
-                Nginx high errors per second
+            <input class="form-check-input" type="checkbox" name="basicNginxMonitors[]" value="nginxDroppedConnections" id="nginxDroppedConnections" v-model="nginxDroppedConnectionsChecked">
+            <label class="form-check-label" for="nginxDroppedConnections">
+                Nginx dropped connections per second
             </label>
         </div>
     </div>
@@ -108,16 +164,24 @@
                 hostIsntReportingChecked: true,
                 cpuUsageChecked: true,
                 cpuLoadChecked: true,
+                cpuIOWaitChecked: true,
                 lowDiskSpaceChecked: true,
-                netTrafficChecked: true,
+                highDiskReadsChecked: true,
+                highDiskWritesChecked: true,
+                netInboundTrafficChecked: true,
+                netOutboundTrafficChecked: true,
                 basicMysqlSetChecked: true,
-                mysqlHighQPSChecked: true,
+                mysqlQPSChangeChecked: true,
+                mysqlSelectChangeChecked: true,
+                mysqlInsertChangeChecked: true,
+                mysqlUpdateChangeChecked: true,
+                mysqlDeleteChangeChecked: true,
                 mysqlSlowQueriesChecked: true,
                 mysqlHighAbortedClientsChecked: true,
                 mysqlSlaveLagChecked: true,
                 basicNginxSetChecked: true,
-                nginxHighRequestsChecked: true,
-                nginxHighErrorsChecked: true
+                nginxRequestsPerSecondChangedChecked: true,
+                nginxDroppedConnectionsChecked: true
             }
         },
         mounted() {
@@ -131,27 +195,43 @@
                     this.hostIsntReportingChecked=true
                     this.cpuUsageChecked=true
                     this.cpuLoadChecked=true
+                    this.cpuIOWaitChecked=true
                     this.lowDiskSpaceChecked=true
-                    this.netTrafficChecked=true
+                    this.highDiskReadsChecked=true
+                    this.highDiskWritesChecked=true
+                    this.netInboundTrafficChecked=true
+                    this.netOutboundTrafficChecked=true
                 } else if(this.basicSetChecked == true) {
                     this.basicSetChecked=false
                     this.hostIsntReportingChecked=false
                     this.cpuUsageChecked=false
                     this.cpuLoadChecked=false
+                    this.cpuIOWaitChecked=false
                     this.lowDiskSpaceChecked=false
-                    this.netTrafficChecked=false
+                    this.highDiskReadsChecked=false
+                    this.highDiskWritesChecked=false
+                    this.netInboundTrafficChecked=false
+                    this.netOutboundTrafficChecked=false
                 }
             },
             basicMysqlSetToggle(e) {
                 if(this.basicMysqlSetChecked == false) {
                     this.basicMysqlSetChecked=true
-                    this.mysqlHighQPSChecked=true
+                    this.mysqlQPSChangeChecked=true
+                    this.mysqlSelectChangeChecked=true
+                    this.mysqlInsertChangeChecked=true
+                    this.mysqlUpdateChangeChecked=true
+                    this.mysqlDeleteChangeChecked=true
                     this.mysqlSlowQueriesChecked=true
                     this.mysqlHighAbortedClientsChecked=true
                     this.mysqlSlaveLagChecked=true
                 } else if(this.basicMysqlSetChecked == true) {
                     this.basicMysqlSetChecked=false
-                    this.mysqlHighQPSChecked=false
+                    this.mysqlQPSChangeChecked=false
+                    this.mysqlSelectChangeChecked=false
+                    this.mysqlInsertChangeChecked=false
+                    this.mysqlUpdateChangeChecked=false
+                    this.mysqlDeleteChangeChecked=false
                     this.mysqlSlowQueriesChecked=false
                     this.mysqlHighAbortedClientsChecked=false
                     this.mysqlSlaveLagChecked=false
@@ -160,38 +240,54 @@
             basicNginxSetToggle(e) {
                 if(this.basicNginxSetChecked == false) {
                     this.basicNginxSetChecked=true
-                    this.nginxHighRequestsChecked=true
-                    this.nginxHighErrorsChecked=true
+                    this.nginxRequestsPerSecondChangedChecked=true
+                    this.nginxDroppedConnectionsChecked=true
                 } else if(this.basicNginxSetChecked == true) {
                     this.basicNginxSetChecked=false
-                    this.nginxHighRequestsChecked=false
-                    this.nginxHighErrorsChecked=false
+                    this.nginxRequestsPerSecondChangedChecked=false
+                    this.nginxDroppedConnectionsChecked=false
                 }
             },
             checkBasic(e) {
                 if(this.hostIsntReportingChecked == false || 
                     this.cpuUsageChecked == false ||
                     this.cpuLoadChecked == false ||
+                    this.cpuIOWaitChecked == false ||
                     this.lowDiskSpaceChecked == false ||
-                    this.netTrafficChecked == false) {
+                    this.highDiskReadsChecked == false ||
+                    this.highDiskWritesChecked == false ||
+                    this.netInboundTrafficChecked == false ||
+                    this.netOutboundTrafficChecked == false) {
                         this.basicSetChecked=false
                 }
                 if(this.hostIsntReportingChecked == true &&
                     this.cpuUsageChecked == true &&
                     this.cpuLoadChecked == true &&
+                    this.cpuIOWaitChecked == true &&
                     this.lowDiskSpaceChecked == true &&
-                    this.netTrafficChecked == true) {
+                    this.highDiskReadsChecked == true &&
+                    this.highDiskWritesChecked == true &&
+                    this.netInboundTrafficChecked == true &&
+                    this.netOutboundTrafficChecked == true) {
                         this.basicSetChecked=true
                 }
             },
             checkBasicMysql(e) {
-                if(this.mysqlHighQPSChecked == false || 
+                if(this.mysqlQPSChangeChecked == false || 
+                    this.mysqlSelectChangeChecked == false ||
+                    this.mysqlInsertChangeChecked == false ||
+                    this.mysqlUpdateChangeChecked == false ||
+                    this.mysqlDeleteChangeChecked == false ||
                     this.mysqlSlowQueriesChecked == false ||
                     this.mysqlHighAbortedClientsChecked == false ||
                     this.mysqlSlaveLagChecked == false) {
                         this.basicMysqlSetChecked=false
                 }
-                if(this.mysqlHighQPSChecked == true && 
+                if(this.mysqlQPSChangeChecked == true && 
+                    this.mysqlSelectChangeChecked == true && 
+                    this.mysqlInsertChangeChecked == true && 
+                    this.mysqlUpdateChangeChecked == true && 
+                    this.mysqlDeleteChangeChecked == true && 
                     this.mysqlSlowQueriesChecked == true && 
                     this.mysqlHighAbortedClientsChecked == true &&
                     this.mysqlSlaveLagChecked == true) {
@@ -199,12 +295,12 @@
                 }
             },
             checkBasicNginx(e) {
-                if(this.nginxHighRequestsChecked == false || 
-                    this.nginxHighErrorsChecked== false) {
+                if(this.nginxRequestsPerSecondChangedChecked == false || 
+                    this.nginxDroppedConnectionsChecked== false) {
                         this.basicNginxSetChecked=false
                 }
-                if(this.nginxHighRequestsChecked == true && 
-                    this.nginxHighErrorsChecked == true) {
+                if(this.nginxRequestsPerSecondChangedChecked == true && 
+                    this.nginxDroppedConnectionsChecked == true) {
                         this.basicNginxSetChecked=true
                 }
             }
@@ -220,13 +316,37 @@
             cpuLoadChecked: function(val) {
                 this.checkBasic()
             },
+            cpuIOWaitChecked: function(val) {
+                this.checkBasic()
+            },
             lowDiskSpaceChecked: function(val) {
                 this.checkBasic()
             },
-            netTrafficChecked: function(val) {
+            highDiskReadsChecked: function(val) {
                 this.checkBasic()
             },
-            mysqlHighQPSChecked: function(val) {
+            highDiskWritesChecked: function(val) {
+                this.checkBasic()
+            },
+            netInboundTrafficChecked: function(val) {
+                this.checkBasic()
+            },
+            netOutboundTrafficChecked: function(val) {
+                this.checkBasic()
+            },
+            mysqlQPSChangeChecked: function(val) {
+                this.checkBasicMysql()
+            },
+            mysqlSelectChangeChecked: function(val) {
+                this.checkBasicMysql()
+            },
+            mysqlInsertChangeChecked: function(val) {
+                this.checkBasicMysql()
+            },
+            mysqlUpdateChangeChecked: function(val) {
+                this.checkBasicMysql()
+            },
+            mysqlDeleteChangeChecked: function(val) {
                 this.checkBasicMysql()
             },
             mysqlSlowQueriesChecked: function(val) {
@@ -238,10 +358,10 @@
             mysqlSlaveLagChecked: function(val) {
                 this.checkBasicMysql()
             },
-            nginxHighRequestsChecked: function(val) {
+            nginxRequestsPerSecondChangedChecked: function(val) {
                 this.checkBasicNginx()
             },
-            nginxHighErrorsChecked: function(val) {
+            nginxDroppedConnectionsChecked: function(val) {
                 this.checkBasicNginx()
             }
         }

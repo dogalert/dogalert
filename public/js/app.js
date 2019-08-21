@@ -1940,6 +1940,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1947,16 +2003,24 @@ __webpack_require__.r(__webpack_exports__);
       hostIsntReportingChecked: true,
       cpuUsageChecked: true,
       cpuLoadChecked: true,
+      cpuIOWaitChecked: true,
       lowDiskSpaceChecked: true,
-      netTrafficChecked: true,
+      highDiskReadsChecked: true,
+      highDiskWritesChecked: true,
+      netInboundTrafficChecked: true,
+      netOutboundTrafficChecked: true,
       basicMysqlSetChecked: true,
-      mysqlHighQPSChecked: true,
+      mysqlQPSChangeChecked: true,
+      mysqlSelectChangeChecked: true,
+      mysqlInsertChangeChecked: true,
+      mysqlUpdateChangeChecked: true,
+      mysqlDeleteChangeChecked: true,
       mysqlSlowQueriesChecked: true,
       mysqlHighAbortedClientsChecked: true,
       mysqlSlaveLagChecked: true,
       basicNginxSetChecked: true,
-      nginxHighRequestsChecked: true,
-      nginxHighErrorsChecked: true
+      nginxRequestsPerSecondChangedChecked: true,
+      nginxDroppedConnectionsChecked: true
     };
   },
   mounted: function mounted() {
@@ -1969,27 +2033,43 @@ __webpack_require__.r(__webpack_exports__);
         this.hostIsntReportingChecked = true;
         this.cpuUsageChecked = true;
         this.cpuLoadChecked = true;
+        this.cpuIOWaitChecked = true;
         this.lowDiskSpaceChecked = true;
-        this.netTrafficChecked = true;
+        this.highDiskReadsChecked = true;
+        this.highDiskWritesChecked = true;
+        this.netInboundTrafficChecked = true;
+        this.netOutboundTrafficChecked = true;
       } else if (this.basicSetChecked == true) {
         this.basicSetChecked = false;
         this.hostIsntReportingChecked = false;
         this.cpuUsageChecked = false;
         this.cpuLoadChecked = false;
+        this.cpuIOWaitChecked = false;
         this.lowDiskSpaceChecked = false;
-        this.netTrafficChecked = false;
+        this.highDiskReadsChecked = false;
+        this.highDiskWritesChecked = false;
+        this.netInboundTrafficChecked = false;
+        this.netOutboundTrafficChecked = false;
       }
     },
     basicMysqlSetToggle: function basicMysqlSetToggle(e) {
       if (this.basicMysqlSetChecked == false) {
         this.basicMysqlSetChecked = true;
-        this.mysqlHighQPSChecked = true;
+        this.mysqlQPSChangeChecked = true;
+        this.mysqlSelectChangeChecked = true;
+        this.mysqlInsertChangeChecked = true;
+        this.mysqlUpdateChangeChecked = true;
+        this.mysqlDeleteChangeChecked = true;
         this.mysqlSlowQueriesChecked = true;
         this.mysqlHighAbortedClientsChecked = true;
         this.mysqlSlaveLagChecked = true;
       } else if (this.basicMysqlSetChecked == true) {
         this.basicMysqlSetChecked = false;
-        this.mysqlHighQPSChecked = false;
+        this.mysqlQPSChangeChecked = false;
+        this.mysqlSelectChangeChecked = false;
+        this.mysqlInsertChangeChecked = false;
+        this.mysqlUpdateChangeChecked = false;
+        this.mysqlDeleteChangeChecked = false;
         this.mysqlSlowQueriesChecked = false;
         this.mysqlHighAbortedClientsChecked = false;
         this.mysqlSlaveLagChecked = false;
@@ -1998,38 +2078,38 @@ __webpack_require__.r(__webpack_exports__);
     basicNginxSetToggle: function basicNginxSetToggle(e) {
       if (this.basicNginxSetChecked == false) {
         this.basicNginxSetChecked = true;
-        this.nginxHighRequestsChecked = true;
-        this.nginxHighErrorsChecked = true;
+        this.nginxRequestsPerSecondChangedChecked = true;
+        this.nginxDroppedConnectionsChecked = true;
       } else if (this.basicNginxSetChecked == true) {
         this.basicNginxSetChecked = false;
-        this.nginxHighRequestsChecked = false;
-        this.nginxHighErrorsChecked = false;
+        this.nginxRequestsPerSecondChangedChecked = false;
+        this.nginxDroppedConnectionsChecked = false;
       }
     },
     checkBasic: function checkBasic(e) {
-      if (this.hostIsntReportingChecked == false || this.cpuUsageChecked == false || this.cpuLoadChecked == false || this.lowDiskSpaceChecked == false || this.netTrafficChecked == false) {
+      if (this.hostIsntReportingChecked == false || this.cpuUsageChecked == false || this.cpuLoadChecked == false || this.cpuIOWaitChecked == false || this.lowDiskSpaceChecked == false || this.highDiskReadsChecked == false || this.highDiskWritesChecked == false || this.netInboundTrafficChecked == false || this.netOutboundTrafficChecked == false) {
         this.basicSetChecked = false;
       }
 
-      if (this.hostIsntReportingChecked == true && this.cpuUsageChecked == true && this.cpuLoadChecked == true && this.lowDiskSpaceChecked == true && this.netTrafficChecked == true) {
+      if (this.hostIsntReportingChecked == true && this.cpuUsageChecked == true && this.cpuLoadChecked == true && this.cpuIOWaitChecked == true && this.lowDiskSpaceChecked == true && this.highDiskReadsChecked == true && this.highDiskWritesChecked == true && this.netInboundTrafficChecked == true && this.netOutboundTrafficChecked == true) {
         this.basicSetChecked = true;
       }
     },
     checkBasicMysql: function checkBasicMysql(e) {
-      if (this.mysqlHighQPSChecked == false || this.mysqlSlowQueriesChecked == false || this.mysqlHighAbortedClientsChecked == false || this.mysqlSlaveLagChecked == false) {
+      if (this.mysqlQPSChangeChecked == false || this.mysqlSelectChangeChecked == false || this.mysqlInsertChangeChecked == false || this.mysqlUpdateChangeChecked == false || this.mysqlDeleteChangeChecked == false || this.mysqlSlowQueriesChecked == false || this.mysqlHighAbortedClientsChecked == false || this.mysqlSlaveLagChecked == false) {
         this.basicMysqlSetChecked = false;
       }
 
-      if (this.mysqlHighQPSChecked == true && this.mysqlSlowQueriesChecked == true && this.mysqlHighAbortedClientsChecked == true && this.mysqlSlaveLagChecked == true) {
+      if (this.mysqlQPSChangeChecked == true && this.mysqlSelectChangeChecked == true && this.mysqlInsertChangeChecked == true && this.mysqlUpdateChangeChecked == true && this.mysqlDeleteChangeChecked == true && this.mysqlSlowQueriesChecked == true && this.mysqlHighAbortedClientsChecked == true && this.mysqlSlaveLagChecked == true) {
         this.basicMysqlSetChecked = true;
       }
     },
     checkBasicNginx: function checkBasicNginx(e) {
-      if (this.nginxHighRequestsChecked == false || this.nginxHighErrorsChecked == false) {
+      if (this.nginxRequestsPerSecondChangedChecked == false || this.nginxDroppedConnectionsChecked == false) {
         this.basicNginxSetChecked = false;
       }
 
-      if (this.nginxHighRequestsChecked == true && this.nginxHighErrorsChecked == true) {
+      if (this.nginxRequestsPerSecondChangedChecked == true && this.nginxDroppedConnectionsChecked == true) {
         this.basicNginxSetChecked = true;
       }
     }
@@ -2044,13 +2124,37 @@ __webpack_require__.r(__webpack_exports__);
     cpuLoadChecked: function cpuLoadChecked(val) {
       this.checkBasic();
     },
+    cpuIOWaitChecked: function cpuIOWaitChecked(val) {
+      this.checkBasic();
+    },
     lowDiskSpaceChecked: function lowDiskSpaceChecked(val) {
       this.checkBasic();
     },
-    netTrafficChecked: function netTrafficChecked(val) {
+    highDiskReadsChecked: function highDiskReadsChecked(val) {
       this.checkBasic();
     },
-    mysqlHighQPSChecked: function mysqlHighQPSChecked(val) {
+    highDiskWritesChecked: function highDiskWritesChecked(val) {
+      this.checkBasic();
+    },
+    netInboundTrafficChecked: function netInboundTrafficChecked(val) {
+      this.checkBasic();
+    },
+    netOutboundTrafficChecked: function netOutboundTrafficChecked(val) {
+      this.checkBasic();
+    },
+    mysqlQPSChangeChecked: function mysqlQPSChangeChecked(val) {
+      this.checkBasicMysql();
+    },
+    mysqlSelectChangeChecked: function mysqlSelectChangeChecked(val) {
+      this.checkBasicMysql();
+    },
+    mysqlInsertChangeChecked: function mysqlInsertChangeChecked(val) {
+      this.checkBasicMysql();
+    },
+    mysqlUpdateChangeChecked: function mysqlUpdateChangeChecked(val) {
+      this.checkBasicMysql();
+    },
+    mysqlDeleteChangeChecked: function mysqlDeleteChangeChecked(val) {
       this.checkBasicMysql();
     },
     mysqlSlowQueriesChecked: function mysqlSlowQueriesChecked(val) {
@@ -2062,10 +2166,10 @@ __webpack_require__.r(__webpack_exports__);
     mysqlSlaveLagChecked: function mysqlSlaveLagChecked(val) {
       this.checkBasicMysql();
     },
-    nginxHighRequestsChecked: function nginxHighRequestsChecked(val) {
+    nginxRequestsPerSecondChangedChecked: function nginxRequestsPerSecondChangedChecked(val) {
       this.checkBasicNginx();
     },
-    nginxHighErrorsChecked: function nginxHighErrorsChecked(val) {
+    nginxDroppedConnectionsChecked: function nginxDroppedConnectionsChecked(val) {
       this.checkBasicNginx();
     }
   }
@@ -37581,6 +37685,58 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
+            value: _vm.cpuIOWaitChecked,
+            expression: "cpuIOWaitChecked"
+          }
+        ],
+        staticClass: "form-check-input",
+        attrs: {
+          type: "checkbox",
+          name: "basicMonitors[]",
+          value: "cpuIOWait",
+          id: "cpuIOWait"
+        },
+        domProps: {
+          checked: Array.isArray(_vm.cpuIOWaitChecked)
+            ? _vm._i(_vm.cpuIOWaitChecked, "cpuIOWait") > -1
+            : _vm.cpuIOWaitChecked
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.cpuIOWaitChecked,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "cpuIOWait",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.cpuIOWaitChecked = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.cpuIOWaitChecked = $$a
+                    .slice(0, $$i)
+                    .concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.cpuIOWaitChecked = $$c
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        { staticClass: "form-check-label", attrs: { for: "cpuIOWait" } },
+        [_vm._v("\n            CPU IO wait per host\n        ")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-check ml-3" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
             value: _vm.lowDiskSpaceChecked,
             expression: "lowDiskSpaceChecked"
           }
@@ -37623,7 +37779,7 @@ var render = function() {
       _c(
         "label",
         { staticClass: "form-check-label", attrs: { for: "lowDiskSpace" } },
-        [_vm._v("\n            Low disk space per device\n        ")]
+        [_vm._v("\n            Low available space per disk\n        ")]
       )
     ]),
     _vm._v(" "),
@@ -37633,40 +37789,40 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.netTrafficChecked,
-            expression: "netTrafficChecked"
+            value: _vm.highDiskReadsChecked,
+            expression: "highDiskReadsChecked"
           }
         ],
         staticClass: "form-check-input",
         attrs: {
           type: "checkbox",
           name: "basicMonitors[]",
-          value: "netTraffic",
-          id: "netTraffic"
+          value: "highDiskReads",
+          id: "highDiskReads"
         },
         domProps: {
-          checked: Array.isArray(_vm.netTrafficChecked)
-            ? _vm._i(_vm.netTrafficChecked, "netTraffic") > -1
-            : _vm.netTrafficChecked
+          checked: Array.isArray(_vm.highDiskReadsChecked)
+            ? _vm._i(_vm.highDiskReadsChecked, "highDiskReads") > -1
+            : _vm.highDiskReadsChecked
         },
         on: {
           change: function($event) {
-            var $$a = _vm.netTrafficChecked,
+            var $$a = _vm.highDiskReadsChecked,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
-              var $$v = "netTraffic",
+              var $$v = "highDiskReads",
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
-                $$i < 0 && (_vm.netTrafficChecked = $$a.concat([$$v]))
+                $$i < 0 && (_vm.highDiskReadsChecked = $$a.concat([$$v]))
               } else {
                 $$i > -1 &&
-                  (_vm.netTrafficChecked = $$a
+                  (_vm.highDiskReadsChecked = $$a
                     .slice(0, $$i)
                     .concat($$a.slice($$i + 1)))
               }
             } else {
-              _vm.netTrafficChecked = $$c
+              _vm.highDiskReadsChecked = $$c
             }
           }
         }
@@ -37674,8 +37830,178 @@ var render = function() {
       _vm._v(" "),
       _c(
         "label",
-        { staticClass: "form-check-label", attrs: { for: "netTraffic" } },
-        [_vm._v("\n            High network traffic per host\n        ")]
+        { staticClass: "form-check-label", attrs: { for: "highDiskReads" } },
+        [_vm._v("\n            High read percentage per disk\n        ")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-check ml-3" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.highDiskWritesChecked,
+            expression: "highDiskWritesChecked"
+          }
+        ],
+        staticClass: "form-check-input",
+        attrs: {
+          type: "checkbox",
+          name: "basicMonitors[]",
+          value: "highDiskWrites",
+          id: "highDiskWrites"
+        },
+        domProps: {
+          checked: Array.isArray(_vm.highDiskWritesChecked)
+            ? _vm._i(_vm.highDiskWritesChecked, "highDiskWrites") > -1
+            : _vm.highDiskWritesChecked
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.highDiskWritesChecked,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "highDiskWrites",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.highDiskWritesChecked = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.highDiskWritesChecked = $$a
+                    .slice(0, $$i)
+                    .concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.highDiskWritesChecked = $$c
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        { staticClass: "form-check-label", attrs: { for: "highDiskWrites" } },
+        [_vm._v("\n            High write percentage per disk\n        ")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-check ml-3" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.netInboundTrafficChecked,
+            expression: "netInboundTrafficChecked"
+          }
+        ],
+        staticClass: "form-check-input",
+        attrs: {
+          type: "checkbox",
+          name: "basicMonitors[]",
+          value: "netInboundTraffic",
+          id: "netInboundTraffic"
+        },
+        domProps: {
+          checked: Array.isArray(_vm.netInboundTrafficChecked)
+            ? _vm._i(_vm.netInboundTrafficChecked, "netInboundTraffic") > -1
+            : _vm.netInboundTrafficChecked
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.netInboundTrafficChecked,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "netInboundTraffic",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.netInboundTrafficChecked = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.netInboundTrafficChecked = $$a
+                    .slice(0, $$i)
+                    .concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.netInboundTrafficChecked = $$c
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        {
+          staticClass: "form-check-label",
+          attrs: { for: "netInboundTraffic" }
+        },
+        [
+          _vm._v(
+            "\n            High inbound network traffic per host\n        "
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-check ml-3" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.netOutboundTrafficChecked,
+            expression: "netOutboundTrafficChecked"
+          }
+        ],
+        staticClass: "form-check-input",
+        attrs: {
+          type: "checkbox",
+          name: "basicMonitors[]",
+          value: "netOutboundTraffic",
+          id: "netOutboundTraffic"
+        },
+        domProps: {
+          checked: Array.isArray(_vm.netOutboundTrafficChecked)
+            ? _vm._i(_vm.netOutboundTrafficChecked, "netOutboundTraffic") > -1
+            : _vm.netOutboundTrafficChecked
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.netOutboundTrafficChecked,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "netOutboundTraffic",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.netOutboundTrafficChecked = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.netOutboundTrafficChecked = $$a
+                    .slice(0, $$i)
+                    .concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.netOutboundTrafficChecked = $$c
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        {
+          staticClass: "form-check-label",
+          attrs: { for: "netOutboundTraffic" }
+        },
+        [
+          _vm._v(
+            "\n            High outbound network traffic per host\n        "
+          )
+        ]
       )
     ]),
     _vm._v(" "),
@@ -37733,40 +38059,40 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.mysqlHighQPSChecked,
-            expression: "mysqlHighQPSChecked"
+            value: _vm.mysqlQPSChangeChecked,
+            expression: "mysqlQPSChangeChecked"
           }
         ],
         staticClass: "form-check-input",
         attrs: {
           type: "checkbox",
           name: "basicMysqlMonitors[]",
-          value: "mysqlHighQPS",
-          id: "mysqlHighQPS"
+          value: "mysqlQPSChange",
+          id: "mysqlQPSChange"
         },
         domProps: {
-          checked: Array.isArray(_vm.mysqlHighQPSChecked)
-            ? _vm._i(_vm.mysqlHighQPSChecked, "mysqlHighQPS") > -1
-            : _vm.mysqlHighQPSChecked
+          checked: Array.isArray(_vm.mysqlQPSChangeChecked)
+            ? _vm._i(_vm.mysqlQPSChangeChecked, "mysqlQPSChange") > -1
+            : _vm.mysqlQPSChangeChecked
         },
         on: {
           change: function($event) {
-            var $$a = _vm.mysqlHighQPSChecked,
+            var $$a = _vm.mysqlQPSChangeChecked,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
-              var $$v = "mysqlHighQPS",
+              var $$v = "mysqlQPSChange",
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
-                $$i < 0 && (_vm.mysqlHighQPSChecked = $$a.concat([$$v]))
+                $$i < 0 && (_vm.mysqlQPSChangeChecked = $$a.concat([$$v]))
               } else {
                 $$i > -1 &&
-                  (_vm.mysqlHighQPSChecked = $$a
+                  (_vm.mysqlQPSChangeChecked = $$a
                     .slice(0, $$i)
                     .concat($$a.slice($$i + 1)))
               }
             } else {
-              _vm.mysqlHighQPSChecked = $$c
+              _vm.mysqlQPSChangeChecked = $$c
             }
           }
         }
@@ -37774,10 +38100,246 @@ var render = function() {
       _vm._v(" "),
       _c(
         "label",
-        { staticClass: "form-check-label", attrs: { for: "mysqlHighQPS" } },
+        { staticClass: "form-check-label", attrs: { for: "mysqlQPSChange" } },
         [
           _vm._v(
-            "\n            MySQL high number of queries per second per host\n        "
+            "\n            MySQL number of queries changed per host\n        "
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-check ml-3" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.mysqlSelectChangeChecked,
+            expression: "mysqlSelectChangeChecked"
+          }
+        ],
+        staticClass: "form-check-input",
+        attrs: {
+          type: "checkbox",
+          name: "basicMysqlMonitors[]",
+          value: "mysqlSelectChange",
+          id: "mysqlSelectChange"
+        },
+        domProps: {
+          checked: Array.isArray(_vm.mysqlSelectChangeChecked)
+            ? _vm._i(_vm.mysqlSelectChangeChecked, "mysqlSelectChange") > -1
+            : _vm.mysqlSelectChangeChecked
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.mysqlSelectChangeChecked,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "mysqlSelectChange",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.mysqlSelectChangeChecked = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.mysqlSelectChangeChecked = $$a
+                    .slice(0, $$i)
+                    .concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.mysqlSelectChangeChecked = $$c
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        {
+          staticClass: "form-check-label",
+          attrs: { for: "mysqlSelectChange" }
+        },
+        [
+          _vm._v(
+            "\n            MySQL number of selects changed per host\n        "
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-check ml-3" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.mysqlInsertChangeChecked,
+            expression: "mysqlInsertChangeChecked"
+          }
+        ],
+        staticClass: "form-check-input",
+        attrs: {
+          type: "checkbox",
+          name: "basicMysqlMonitors[]",
+          value: "mysqlInsertChange",
+          id: "mysqlInsertChange"
+        },
+        domProps: {
+          checked: Array.isArray(_vm.mysqlInsertChangeChecked)
+            ? _vm._i(_vm.mysqlInsertChangeChecked, "mysqlInsertChange") > -1
+            : _vm.mysqlInsertChangeChecked
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.mysqlInsertChangeChecked,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "mysqlInsertChange",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.mysqlInsertChangeChecked = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.mysqlInsertChangeChecked = $$a
+                    .slice(0, $$i)
+                    .concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.mysqlInsertChangeChecked = $$c
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        {
+          staticClass: "form-check-label",
+          attrs: { for: "mysqlInsertChange" }
+        },
+        [
+          _vm._v(
+            "\n            MySQL number of inserts changed per host\n        "
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-check ml-3" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.mysqlUpdateChangeChecked,
+            expression: "mysqlUpdateChangeChecked"
+          }
+        ],
+        staticClass: "form-check-input",
+        attrs: {
+          type: "checkbox",
+          name: "basicMysqlMonitors[]",
+          value: "mysqlUpdateChange",
+          id: "mysqlUpdateChange"
+        },
+        domProps: {
+          checked: Array.isArray(_vm.mysqlUpdateChangeChecked)
+            ? _vm._i(_vm.mysqlUpdateChangeChecked, "mysqlUpdateChange") > -1
+            : _vm.mysqlUpdateChangeChecked
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.mysqlUpdateChangeChecked,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "mysqlUpdateChange",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.mysqlUpdateChangeChecked = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.mysqlUpdateChangeChecked = $$a
+                    .slice(0, $$i)
+                    .concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.mysqlUpdateChangeChecked = $$c
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        {
+          staticClass: "form-check-label",
+          attrs: { for: "mysqlUpdateChange" }
+        },
+        [
+          _vm._v(
+            "\n            MySQL number of updates changed per host\n        "
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-check ml-3" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.mysqlDeleteChangeChecked,
+            expression: "mysqlDeleteChangeChecked"
+          }
+        ],
+        staticClass: "form-check-input",
+        attrs: {
+          type: "checkbox",
+          name: "basicMysqlMonitors[]",
+          value: "mysqlDeleteChange",
+          id: "mysqlDeleteChange"
+        },
+        domProps: {
+          checked: Array.isArray(_vm.mysqlDeleteChangeChecked)
+            ? _vm._i(_vm.mysqlDeleteChangeChecked, "mysqlDeleteChange") > -1
+            : _vm.mysqlDeleteChangeChecked
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.mysqlDeleteChangeChecked,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "mysqlDeleteChange",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.mysqlDeleteChangeChecked = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.mysqlDeleteChangeChecked = $$a
+                    .slice(0, $$i)
+                    .concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.mysqlDeleteChangeChecked = $$c
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        {
+          staticClass: "form-check-label",
+          attrs: { for: "mysqlDeleteChange" }
+        },
+        [
+          _vm._v(
+            "\n            MySQL number of deletes changed per host\n        "
           )
         ]
       )
@@ -38004,40 +38566,44 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.nginxHighRequestsChecked,
-            expression: "nginxHighRequestsChecked"
+            value: _vm.nginxRequestsPerSecondChangedChecked,
+            expression: "nginxRequestsPerSecondChangedChecked"
           }
         ],
         staticClass: "form-check-input",
         attrs: {
           type: "checkbox",
           name: "basicNginxMonitors[]",
-          value: "nginxHighRequests",
-          id: "nginxHighRequests"
+          value: "nginxRequestsPerSecondChanged",
+          id: "nginxRequestsPerSecondChanged"
         },
         domProps: {
-          checked: Array.isArray(_vm.nginxHighRequestsChecked)
-            ? _vm._i(_vm.nginxHighRequestsChecked, "nginxHighRequests") > -1
-            : _vm.nginxHighRequestsChecked
+          checked: Array.isArray(_vm.nginxRequestsPerSecondChangedChecked)
+            ? _vm._i(
+                _vm.nginxRequestsPerSecondChangedChecked,
+                "nginxRequestsPerSecondChanged"
+              ) > -1
+            : _vm.nginxRequestsPerSecondChangedChecked
         },
         on: {
           change: function($event) {
-            var $$a = _vm.nginxHighRequestsChecked,
+            var $$a = _vm.nginxRequestsPerSecondChangedChecked,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
-              var $$v = "nginxHighRequests",
+              var $$v = "nginxRequestsPerSecondChanged",
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
-                $$i < 0 && (_vm.nginxHighRequestsChecked = $$a.concat([$$v]))
+                $$i < 0 &&
+                  (_vm.nginxRequestsPerSecondChangedChecked = $$a.concat([$$v]))
               } else {
                 $$i > -1 &&
-                  (_vm.nginxHighRequestsChecked = $$a
+                  (_vm.nginxRequestsPerSecondChangedChecked = $$a
                     .slice(0, $$i)
                     .concat($$a.slice($$i + 1)))
               }
             } else {
-              _vm.nginxHighRequestsChecked = $$c
+              _vm.nginxRequestsPerSecondChangedChecked = $$c
             }
           }
         }
@@ -38047,9 +38613,9 @@ var render = function() {
         "label",
         {
           staticClass: "form-check-label",
-          attrs: { for: "nginxHighRequests" }
+          attrs: { for: "nginxRequestsPerSecondChanged" }
         },
-        [_vm._v("\n            Nginx high requests per second\n        ")]
+        [_vm._v("\n            Nginx requests per second changed\n        ")]
       )
     ]),
     _vm._v(" "),
@@ -38059,40 +38625,44 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.nginxHighErrorsChecked,
-            expression: "nginxHighErrorsChecked"
+            value: _vm.nginxDroppedConnectionsChecked,
+            expression: "nginxDroppedConnectionsChecked"
           }
         ],
         staticClass: "form-check-input",
         attrs: {
           type: "checkbox",
           name: "basicNginxMonitors[]",
-          value: "nginxHighErrors",
-          id: "nginxHighErrors"
+          value: "nginxDroppedConnections",
+          id: "nginxDroppedConnections"
         },
         domProps: {
-          checked: Array.isArray(_vm.nginxHighErrorsChecked)
-            ? _vm._i(_vm.nginxHighErrorsChecked, "nginxHighErrors") > -1
-            : _vm.nginxHighErrorsChecked
+          checked: Array.isArray(_vm.nginxDroppedConnectionsChecked)
+            ? _vm._i(
+                _vm.nginxDroppedConnectionsChecked,
+                "nginxDroppedConnections"
+              ) > -1
+            : _vm.nginxDroppedConnectionsChecked
         },
         on: {
           change: function($event) {
-            var $$a = _vm.nginxHighErrorsChecked,
+            var $$a = _vm.nginxDroppedConnectionsChecked,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
-              var $$v = "nginxHighErrors",
+              var $$v = "nginxDroppedConnections",
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
-                $$i < 0 && (_vm.nginxHighErrorsChecked = $$a.concat([$$v]))
+                $$i < 0 &&
+                  (_vm.nginxDroppedConnectionsChecked = $$a.concat([$$v]))
               } else {
                 $$i > -1 &&
-                  (_vm.nginxHighErrorsChecked = $$a
+                  (_vm.nginxDroppedConnectionsChecked = $$a
                     .slice(0, $$i)
                     .concat($$a.slice($$i + 1)))
               }
             } else {
-              _vm.nginxHighErrorsChecked = $$c
+              _vm.nginxDroppedConnectionsChecked = $$c
             }
           }
         }
@@ -38100,8 +38670,11 @@ var render = function() {
       _vm._v(" "),
       _c(
         "label",
-        { staticClass: "form-check-label", attrs: { for: "nginxHighErrors" } },
-        [_vm._v("\n            Nginx high errors per second\n        ")]
+        {
+          staticClass: "form-check-label",
+          attrs: { for: "nginxDroppedConnections" }
+        },
+        [_vm._v("\n            Nginx dropped connections per second\n        ")]
       )
     ])
   ])
@@ -50435,8 +51008,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/dogalert/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/dogalert/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /data/dogalert/www/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /data/dogalert/www/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
